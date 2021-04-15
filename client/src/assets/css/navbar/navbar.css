@@ -45,7 +45,7 @@ header nav .logo a {
   color: black;
 }
 
-header nav .login input {
+header nav .login .login-btn {
   color: white;
   background-color: #3a89fa;
   outline: none;
@@ -55,9 +55,10 @@ header nav .login input {
   cursor: pointer;
   font-size: 16px;
   letter-spacing: 1px;
+  text-decoration: none;
 }
 
-header nav .login input:hover {
+header nav .login .login-btn:hover {
   background-color: #367ee4;
 }
 

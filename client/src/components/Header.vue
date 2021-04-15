@@ -3,7 +3,9 @@
     <nav>
       <div class="logo">
         <!-- <a href="/">Logo</a> -->
-        <img src="../assets/images/Logo.svg" alt="Logo" />
+        <router-link to="/">
+          <img src="../assets/images/Logo.svg" alt="Logo" />
+        </router-link>
       </div>
 
       <div class="nav-search">
@@ -19,15 +21,50 @@
         </form>
       </div>
       <div class="login">
-        <input type="button" value="Login" />
+        <router-link v-show="!auth" class="login-btn" to="/login"
+          >Login</router-link
+        >
+        <button v-show="auth" @click="logout">Logout</button>
       </div>
     </nav>
   </header>
 </template>
 
 <script>
+import axios from "axios";
+import Auth from "../auth";
+import cookies from "js-cookie";
+
 export default {
   name: "Header",
+  // created: {
+  //   auth: function() {
+  //     return Auth.isAuthenticated();
+  //   },
+  // },
+  data: function() {
+    return {
+      auth: "",
+    };
+  },
+  created() {
+    this.auth = Auth.isAuthenticated();
+  },
+  methods: {
+    logout: function() {
+      axios.defaults.withCredentials = true;
+
+      axios
+        .get("http://localhost:5000/user/logout")
+        .then((response) => {
+          console.log(response);
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 
