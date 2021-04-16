@@ -1,13 +1,13 @@
-const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 require("dotenv").config({ path: __dirname + "/.env" });
+const verify = require("./verifyToken");
 
 //Get all users
-router.get("/", async (req, res) => {
+router.get("/", verify, async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -67,23 +67,10 @@ router.get("/logout", (req, res) => {
   res.clearCookie("accessToken").clearCookie("authSession").send("logout");
 });
 
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHedaer && authHeader.split(" ")[1];
-  if (token == null) return res.send(status(401));
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, useruid) => {
-    console.log(err);
-    if (err) return res.sendStatus(403);
-    req.useruid = useruid;
-    next();
-  });
-}
-
 // Get specific user
-router.get("/:am", async (req, res) => {
+router.get("/:uid", async (req, res) => {
   try {
-    const user = await User.findOne({ am: req.params.am });
+    const user = await User.findOne({ uid: req.params.uid });
     res.json(user);
   } catch (error) {
     res.json({ message: error });

@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <h1 v-if="auth">Logged In</h1>
+  <div v-if="auth">
+    <h1>Logged In</h1>
+    <button @click="back">Request</button>
   </div>
 </template>
 
 <script>
 import Auth from "../auth";
+import axios from "axios";
 
 export default {
   name: "Index",
@@ -16,6 +18,15 @@ export default {
   },
   created() {
     this.auth = Auth.isAuthenticated();
+  },
+  methods: {
+    back() {
+      axios
+        .get("http://localhost:5000/posts", { withCredentials: true })
+        .then((response) => {
+          console.log(response);
+        });
+    },
   },
 };
 </script>
