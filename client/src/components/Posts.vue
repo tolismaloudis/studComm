@@ -201,6 +201,7 @@
 <script>
     import Post from './Post.vue'
     import postService from "../postService.js";
+    import $ from 'jquery'
 
     export default{
         name: 'Posts',
@@ -209,12 +210,12 @@
             post: Array
         },
         data() {
-        return {
-            posts: [],
-            error: '',
-            title: '',
-            body: '',
-        }
+            return {
+                posts: [],
+                error: '',
+                title: '',
+                body: '',
+            }
         },
         async created() {
         try {
@@ -222,6 +223,13 @@
         } catch (err) {
             this.error = err.message;
         }
+        },
+        mounted(){
+            $('.sub-menu ul').hide();
+            $(".sub-menu a").click(function () {
+                $(this).parent(".sub-menu").children("ul").slideToggle("100");
+                $(this).find(".right").toggleClass("fa-caret-up fa-caret-down");
+        });
         }
     }
 
