@@ -25,6 +25,7 @@ const posts = require("./routes/posts");
 app.use("/user", login);
 app.use("/posts", posts);
 
+
 // app listen
 const PORT = process.env.PORT || 5000;
 

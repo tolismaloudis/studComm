@@ -14,18 +14,6 @@ export default {
         posts: []
       }
     },
-    methods: {
-      async fetchPosts(){
-        const res = await fetch('http://localhost:3000/posts')
-
-        const posts = await res.json()
-
-        return posts
-      },
-    },
-  async created(){
-    this.posts = await this.fetchPosts()
-  }
 }
 
 </script>

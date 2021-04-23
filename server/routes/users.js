@@ -7,7 +7,7 @@ require("dotenv").config({ path: __dirname + "/.env" });
 const verify = require("./verifyToken");
 
 //Get all users
-router.get("/", verify, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);

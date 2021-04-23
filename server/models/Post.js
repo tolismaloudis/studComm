@@ -15,30 +15,12 @@ const PostSchema = new mongoose.Schema({
     },
     title: {
         type: String,
-        required: true,
-        trim: true
+        trim: true,
+        required: true
     },
     body: {
         type: String,
         required: true
-    },
-    semester: {
-        type: Number,
-        required: true
-    },
-    course: {
-        type: Number
-    },
-    importance: {
-        type: Number,
-        min: 1,
-        max: 3
-    },
-    status: {
-        type: Boolean
-    },
-    keys: {
-        type: String
     }
 });
 
