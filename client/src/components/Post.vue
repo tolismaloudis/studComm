@@ -16,7 +16,7 @@
 
                         </div>
                         <div class="card-body">
-                            <div class="text-muted h7 mb-2 pull-right"> <i class="fa fa-clock-o"></i>{{ post.createdAt }}</div>
+                            <div class="text-muted h7 mb-2 pull-right"> <i class="fa fa-clock-o"></i>{{ post.createdAt.getDate() }}</div>
                             <a class="card-link" href="#"><h5 class="card-title"> {{ post.title }}</h5></a>
                             <p class="card-text"> {{ post.body }}</p>
                             <div>

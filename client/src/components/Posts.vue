@@ -183,7 +183,7 @@
                     <div class="col-md-12">
                         <div id="create_new_post" class="input-group">
                             <span class="input-group-text" id="addon-wrapping"><img class="rounded-circle" width="20" src="https://picsum.photos/50/50" alt=""></span>
-                            <router-link to="/newPost"><input type="text" class="form-control" placeholder="Τι σκέφτεσαι;" aria-label="Username" aria-describedby="addon-wrapping"></router-link>
+                            <router-link class="form-control" to="/newPost"><input type="text" placeholder="Τι σκέφτεσαι;" aria-label="Username" aria-describedby="addon-wrapping"></router-link>
                         </div>
                     </div>
                 </div>
@@ -193,22 +193,35 @@
                 </div>
 
             </div>
-            <div class="col-md-3">
-            </div>
+            <div class="col-md-3"></div>
         </div>
     </div>
 </template>
 
 <script>
     import Post from './Post.vue'
+    import postService from "../postService.js";
 
     export default{
         name: 'Posts',
-        props: {
-            posts: Array
+        components: {Post},
+        props:{
+            post: Array
         },
-        components: {
-            Post
+        data() {
+        return {
+            posts: [],
+            error: '',
+            title: '',
+            body: '',
+        }
+        },
+        async created() {
+        try {
+            this.posts = await postService.getPosts();
+        } catch (err) {
+            this.error = err.message;
+        }
         }
     }
 
@@ -231,6 +244,12 @@
         border-radius: 5px;
         padding: 8px;
         margin: 0 0 50px;
+    }
+    input{
+        border: none;
+        width: 100%;
+        height: 100%;
+        outline: none;
     }
 
     #addon-wrapping{

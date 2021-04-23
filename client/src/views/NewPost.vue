@@ -1,5 +1,5 @@
 <template>
-    <NewP @add-post="addPost" />
+    <NewP />
 </template>
 
 <script>
@@ -9,11 +9,6 @@ export default {
   name: "NewPost",
   components: {
     NewP,
-  },
-  methods: {
-    addPost(post){
-      this.posts = [...this.posts, post]
-    }
   }
 };
 

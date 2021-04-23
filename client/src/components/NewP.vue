@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <form @submit="onSubmit">
+        
             <div class="row">
                 <div class="col-md-8 bg-white" id="left_side">
                     <div class="row">
@@ -48,7 +48,7 @@
                         <div class="col-md-12">
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <textarea v-model="body" id="textarea" name="textarea" maxlength="800" placeholder="Περιεχόμενο" cols="40" rows="5" class="form-control"></textarea>
+                                    <textarea v-model="body" id="textarea" name="textarea" maxlength="800" placeholder="Περιεχόμενο" required cols="40" rows="5" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="col-12 btn btn-primary" type="submit">Δημοσίευση</button>
+                            <button v-on:click="newPost" class="col-12 btn btn-primary">Δημοσίευση</button>
                         </div>
                     </div>
                 </div>
@@ -86,40 +86,41 @@
                     </div>
                 </div>
             </div>
-        </form>
+        
     </div>
 </template>
 
 <script>
+import postService from '../postService'
 
     export default{
         name: 'NewPost',
         data() {
             return {
-                user: 'tolis',
-                createdAt: '100 min ago',
+                posts: [],
+                error: '',
+                user: 'SOSTOS USER',
                 title: '',
                 body: '',
             }
         },
         methods: {
-            onSubmit(e) {
-                e.preventDefault()
-                
+            async newPost(){
+                var empty_title = document.getElementById("post_title").value;
+                var empty_body = document.getElementById("textarea").value;
+                if (empty_title === "" || empty_body === ""){
+                    alert("Συμπλήρωσε τον τίτλο και το περιεχόμενο της ανάρτησης για να υποβληθεί η δημοσίευση");
+                    return;
+                }
                 const newPost = {
-                    p_id: Math.floor(Math.random() * 100000),
                     user: this.user,
-                    createdAt: this.createdAt,
                     title: this.title,
                     body: this.body
                 }
+                await postService.newPost(newPost);
 
-                this.$emit('add-post', newPost)
-
-                this.p_id = ''
-                this.title = ''
-                this.body = ''
-
+                this.title = "";
+                this.body = "";
             }
         }
     }
