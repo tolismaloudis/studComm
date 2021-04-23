@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Index from "../views/Index";
 import Home from "../views/Home";
 import Auth from "../components/Auth";
 import NewPost from "../views/NewPost";
 import ClickedPost from "../views/ClickedPost";
+import AuthFunction from "../auth";
+import { nextTick } from "@vue/runtime-core";
 
 const login_red = `https://login.iee.ihu.gr/authorization/?client_id=${process.env.VUE_APP_CLIENT_ID}&response_type=code
 &scope=profile&redirect_uri=http://localhost:8080/login/auth
@@ -12,26 +13,26 @@ const login_red = `https://login.iee.ihu.gr/authorization/?client_id=${process.e
 const routes = [
   {
     path: "/",
-    name: "Index",
-    component: Index,
-  },
-  {
-    path: "/home",
     name: "Home",
     component: Home,
   },
   {
-    path: '/newPost',
+    path: "/newPost",
     name: "NewPost",
-    component: NewPost
+    component: NewPost,
+    beforeEnter: (to, from, next) => {
+      if (!AuthFunction.isAuthenticated()) next({ name: "login" });
+      next();
+    },
   },
   {
-    path: '/clickedPost',
+    path: "/clickedPost",
     name: "ClickedPost",
-    component: ClickedPost
+    component: ClickedPost,
   },
   {
     path: "/login",
+    name: "login",
     redirect: (to) => {
       window.location.href = login_red;
     },

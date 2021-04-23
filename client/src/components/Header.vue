@@ -33,15 +33,9 @@
 <script>
 import axios from "axios";
 import Auth from "../auth";
-import cookies from "js-cookie";
 
 export default {
   name: "Header",
-  // created: {
-  //   auth: function() {
-  //     return Auth.isAuthenticated();
-  //   },
-  // },
   data: function() {
     return {
       auth: "",
@@ -58,7 +52,7 @@ export default {
         .get("http://localhost:5000/user/logout")
         .then((response) => {
           console.log(response);
-          window.location.reload();
+          window.location.href = "http://localhost:8080/";
         })
         .catch((error) => {
           console.log(error);

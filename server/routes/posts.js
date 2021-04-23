@@ -4,8 +4,6 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: __dirname + "/.env" });
 const verify = require("./verifyToken");
 
-// load config
-
 router.get("/", verify, (req, res) => {
   res.json("working");
 });
