@@ -29,8 +29,6 @@ export default {
         })
       )
       .then((response) => {
-        console.log(response);
-
         axios
           .get("https://api.iee.ihu.gr/profile", {
             headers: {
@@ -39,9 +37,6 @@ export default {
             },
           })
           .then((response) => {
-            console.log(response);
-            console.log(this);
-
             axios.defaults.withCredentials = true;
 
             axios
@@ -57,7 +52,6 @@ export default {
                 uid: response.data.uid,
               })
               .then((response) => {
-                console.log(response);
                 if (response.status == 202) {
                   this.$router.push({ path: "/" });
                 }

@@ -1,19 +1,18 @@
 <template>
   <div>
     <Header v-if="!$route.meta.hideHeader" />
-    <router-view></router-view>
+    <router-view :key="$route.query"></router-view>
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
 
-
 export default {
   name: "App",
   components: {
     Header,
-  }
+  },
 };
 </script>
 

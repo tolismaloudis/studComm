@@ -9,9 +9,15 @@
       </div>
 
       <div class="nav-search">
-        <form action="">
+        <form @submit.prevent="search">
           <div class="nav-search-items">
-            <input type="text" name="" id="" placeholder="Αναζήτηση" />
+            <input
+              type="text"
+              v-model="searchParam"
+              name=""
+              id=""
+              placeholder="Αναζήτηση"
+            />
             <button type="submit">
               <div class="button-icon">
                 <img src="../assets/images/Search.svg" alt="sadf" />
@@ -33,17 +39,12 @@
 <script>
 import axios from "axios";
 import Auth from "../auth";
-import cookies from "js-cookie";
 
 export default {
   name: "Header",
-  // created: {
-  //   auth: function() {
-  //     return Auth.isAuthenticated();
-  //   },
-  // },
   data: function() {
     return {
+      searchParam: "",
       auth: "",
     };
   },
@@ -57,12 +58,20 @@ export default {
       axios
         .get("http://localhost:5000/user/logout")
         .then((response) => {
-          console.log(response);
-          window.location.reload();
+          window.location.href = "http://localhost:8080/";
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    search: function() {
+      // if (this.searchParam == "" || this.searchParam == " ") return;
+      if (!this.searchParam.trim().length) return;
+      this.$router.push({
+        path: "search",
+        query: { q: this.searchParam.trim() },
+      });
+      this.searchParam = "";
     },
   },
 };

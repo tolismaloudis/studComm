@@ -4,6 +4,8 @@ import Home from "../views/Home";
 import Auth from "../components/Auth";
 import NewPost from "../views/NewPost";
 import ClickedPost from "../views/ClickedPost";
+import Search from "../views/Search";
+import AuthFunction from "../auth";
 
 const login_red = `https://login.iee.ihu.gr/authorization/?client_id=${process.env.VUE_APP_CLIENT_ID}&response_type=code
 &scope=profile&redirect_uri=http://localhost:8080/login/auth
@@ -12,26 +14,27 @@ const login_red = `https://login.iee.ihu.gr/authorization/?client_id=${process.e
 const routes = [
   {
     path: "/",
-    name: "Index",
-    component: Index,
-  },
-  {
-    path: "/home",
     name: "Home",
     component: Home,
   },
   {
-    path: '/newPost',
+    path: "/newPost",
     name: "NewPost",
-    component: NewPost
+    component: NewPost,
+    beforeEnter: (to, from, next) => {
+      if (!AuthFunction.isAuthenticated())
+        next((window.location.href = login_red));
+      next();
+    },
   },
   {
-    path: '/clickedPost',
+    path: "/clickedPost",
     name: "ClickedPost",
-    component: ClickedPost
+    component: ClickedPost,
   },
   {
     path: "/login",
+    name: "login",
     redirect: (to) => {
       window.location.href = login_red;
     },
@@ -43,6 +46,11 @@ const routes = [
     meta: {
       hideHeader: true,
     },
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: Search,
   },
 ];
 
