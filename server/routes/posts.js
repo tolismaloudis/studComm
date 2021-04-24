@@ -9,6 +9,7 @@ const verify = require("./verifyToken");
 router.get("/", async (req, res) => {
   try {
     const posts = await Post.find();
+    // const posts = await Post.find().sort({ $natural: -1 });
     res.json(posts);
   } catch (err) {
     res.json({ message: err });
