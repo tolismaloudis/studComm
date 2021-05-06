@@ -7,7 +7,7 @@ require("dotenv").config({ path: __dirname + "/.env" });
 const verify = require("./verifyToken");
 
 //Get all users
-router.get("/", async (req, res) => {
+router.get("/", verify, async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -33,6 +33,7 @@ router.post("/", async (req, res) => {
   const useruid = { uid: req.body.uid };
 
   User.findOne(useruid, async function (err, euser) {
+    // console.log(euser.eduPersonAffiliation);
     if (euser == null) {
       try {
         const savedUser = await user.save();

@@ -23,15 +23,6 @@ class postService {
 
   //SEARCH POSTS
   static searchPosts(params) {
-    // axios
-    //   .get("http://localhost:5000/posts/search", {
-    //     params: { search: params },
-    //   })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     return response.data;
-    //   })
-    //   .catch((err) => console.log(err));
     return new Promise((resolve, reject) => {
       axios
         .get("http://localhost:5000/posts/search", {

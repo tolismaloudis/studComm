@@ -8,12 +8,16 @@ const verify = require("./verifyToken");
 // get posts
 router.get("/", async (req, res) => {
   try {
-    const posts = await Post.find();
-    // const posts = await Post.find().sort({ $natural: -1 });
+    // const posts = await Post.find();
+    const posts = await Post.find().sort({ $natural: -1 });
     res.json(posts);
   } catch (err) {
     res.json({ message: err });
   }
+});
+
+router.get("/test", verify, async (req, res) => {
+  res.json(req.useruid.uid);
 });
 
 router.get("/search", async (req, res) => {
@@ -32,11 +36,11 @@ router.get("/search", async (req, res) => {
 });
 
 //new post();
-router.post("/", async (req, res) => {
+router.post("/", verify, async (req, res) => {
   const post = new Post({
-    user: req.body.user,
-    title: req.body.title,
-    body: req.body.body,
+    user: req.useruid.uid,
+    title: req.body.new_post.title,
+    body: req.body.new_post.body,
   });
 
   try {

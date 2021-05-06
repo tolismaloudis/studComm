@@ -3,7 +3,7 @@ const cookieParser = require("cookie-parser");
 
 module.exports = function (req, res, next) {
   const authHeader = req.cookies.accessToken;
-  console.log(authHeader);
+  // console.log(authHeader);
   // const token = authHeader && authHeader.split(" ")[1];
   if (authHeader == null) return res.sendStatus(401);
 
