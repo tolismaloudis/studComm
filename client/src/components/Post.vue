@@ -1,6 +1,6 @@
 <template>
   <!--- \\\\\\\Post-->
-  <div class="card gedf-card">
+  <div class="card gedf-card" @click="handleClick(post._id)">
     <div class="card-header">
       <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex justify-content-between align-items-center">
@@ -8,7 +8,7 @@
             <img
               class="rounded-circle"
               width="38"
-              src="https://picsum.photos/50/50"
+              src="../assets/useravatar.png"
               alt=""
             />
           </div>
@@ -21,7 +21,7 @@
     </div>
     <div class="card-body">
       <div class="text-muted h7 mb-2 pull-right">
-        <i class="fa fa-clock-o"></i>{{ post.createdAt.getDate() }}
+        <i class="fa fa-clock-o"></i>  {{ String(post.createtAt).substring(0, 10) }}
       </div>
 
       <h4 class="card-title">{{ post.title }}</h4>
@@ -33,8 +33,8 @@
       </div>
     </div>
     <div class="card-footer">
-      <router-link to="/clickedPost" class="card-link"
-        ><i class="fa fa-comment"></i> Comment</router-link
+      <a class="card-link"
+        ><i class="fa fa-comment"></i> Comment</a
       >
     </div>
   </div>
@@ -42,11 +42,17 @@
 </template>
 
 <script>
+
 export default {
   name: "Post",
   props: {
     post: Object,
   },
+  methods:{
+    handleClick(id){
+      this.$router.push({name:'ClickedPost',params:{ id: id}})
+    }
+  }
 };
 </script>
 
@@ -57,6 +63,9 @@ body {
 
 .h7 {
   font-size: 0.8rem;
+}
+.gedf-card{
+  cursor: pointer;
 }
 
 .gedf-wrapper {

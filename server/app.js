@@ -21,9 +21,11 @@ try {
 
 const login = require("./routes/users");
 const posts = require("./routes/posts");
+const comments = require("./routes/comments");
 
 app.use("/user", login);
 app.use("/posts", posts);
+app.use("/comments", comments);
 
 
 // app listen

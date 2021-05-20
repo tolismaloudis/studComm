@@ -28,9 +28,10 @@ const routes = [
     },
   },
   {
-    path: "/clickedPost",
+    path: "/clickedPost/:id",
     name: "ClickedPost",
     component: ClickedPost,
+    props: true
   },
   {
     path: "/login",
