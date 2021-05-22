@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="text-muted h7 mb-2 pull-right"> <i class="fa fa-clock-o"></i>  {{ String(post.createtAt).substring(0, 10) }}</div>
+                        <div class="text-muted h7 mb-2 pull-right"> <i class="fa fa-calendar"></i>  {{ String(post.createtAt).substring(0, 10) }}</div>
                         <br>
                         <a class="card-link" href="#"><h5 class="card-title">{{ post.title }}</h5></a>
                         <p class="card-text">{{ post.body }}</p>

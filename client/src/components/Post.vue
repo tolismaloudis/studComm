@@ -21,7 +21,7 @@
     </div>
     <div class="card-body">
       <div class="text-muted h7 mb-2 pull-right">
-        <i class="fa fa-clock-o"></i>  {{ String(post.createtAt).substring(0, 10) }}
+        <i class="fa fa-calendar"></i>  {{ String(post.createtAt).substring(0, 10) }}
       </div>
 
       <h4 class="card-title">{{ post.title }}</h4>
