@@ -16,11 +16,21 @@ router.get("/", async (req, res) => {
   }
 });
 
+// get specific post
+router.get("/:pid", async (req, res) => {
+  try {
+    const Specpost = await Post.findById({ _id: req.params.pid });
+    res.json(Specpost);
+  } catch (error) {
+    res.json({ message: error });
+  }
+});
+
 router.get("/test", verify, async (req, res) => {
   res.json(req.useruid.uid);
 });
 
-router.get("/search", async (req, res) => {
+router.get("/search/results", async (req, res) => {
   const searchParams = req.query.search;
   try {
     const searchedPost = await Post.find(

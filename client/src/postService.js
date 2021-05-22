@@ -22,26 +22,26 @@ class postService {
   }
 
   //SEARCH POSTS
-  static searchPosts(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get("http://localhost:5000/posts/search", {
-          params: { search: params },
-        })
-        .then((res) => {
-          const data = res.data;
-          resolve(
-            data.map((post) => ({
-              ...post,
-              createdAt: new Date(post.createdAt),
-            }))
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
-  }
+  // static searchPosts(params) {
+  //   return new Promise((resolve, reject) => {
+  //     axios
+  //       .get("http://localhost:5000/posts/search", {
+  //         params: { search: params },
+  //       })
+  //       .then((res) => {
+  //         const data = res.data;
+  //         resolve(
+  //           data.map((post) => ({
+  //             ...post,
+  //             createdAt: new Date(post.createdAt),
+  //           }))
+  //         );
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   });
+  // }
 
   //CREATE NEW POST
   static newPost(new_post) {

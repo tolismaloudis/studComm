@@ -5,12 +5,12 @@
         <Filters />
       </div>
       <div class="col-md-6 gedf-main">
-        <h2 v-if="found">Results for "{{ results }}"</h2>
-        <Posts :posts="posts" />
+        <h2 v-if="getSearched != ''">Results for "{{ results }}"</h2>
+        <Posts :posts="getSearched" />
       </div>
       <div class="col-md-3"></div>
     </div>
-    <h1 v-if="!found">No Posts Found for "{{ results }}"</h1>
+    <h1 v-if="getSearched == ''">No Posts Found for "{{ results }}"</h1>
   </div>
 </template>
 
@@ -18,26 +18,27 @@
 import postService from "../postService.js";
 import Posts from "../components/Posts";
 import Filters from "../components/Filters";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Search",
   components: { Posts, Filters },
   data() {
     return {
-      posts: [],
       found: true,
       results: "",
     };
   },
-  async created() {
-    try {
-      this.results = this.$route.query.q;
-      this.posts = await postService.searchPosts(this.$route.query.q);
-      console.log(this.posts);
-      if (this.posts == "") this.found = false;
-    } catch (error) {
-      console.log(error);
-    }
+  created() {
+    this.results = this.$route.query.q;
+    const filt = this.$route.query.q;
+    this.fetchSearched(filt);
+  },
+  methods: {
+    ...mapActions(["fetchSearched"]),
+  },
+  computed: {
+    ...mapGetters(["getSearched"]),
   },
 };
 </script>

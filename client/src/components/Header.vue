@@ -65,7 +65,6 @@ export default {
         });
     },
     search: function() {
-      // if (this.searchParam == "" || this.searchParam == " ") return;
       if (!this.searchParam.trim().length) return;
       this.$router.push({
         path: "search",
